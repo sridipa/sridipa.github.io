@@ -19,16 +19,35 @@
   --gray6: #f5f5f5;
   --white: #fff;
   --link: #1a1a8c;
+  --bg: #fff;
+  --nav-bg: #fff;
+  --nav-border: #e5e5e5;
+}
+
+[data-theme="dark"] {
+  --black: #f0f0f0;
+  --gray1: #cccccc;
+  --gray2: #aaaaaa;
+  --gray3: #777777;
+  --gray4: #555555;
+  --gray5: #2a2a2a;
+  --gray6: #1e1e1e;
+  --white: #141414;
+  --link: #8b9fdf;
+  --bg: #141414;
+  --nav-bg: #111111;
+  --nav-border: #222222;
 }
 
 html { scroll-behavior: smooth; }
-body { background: var(--white); color: var(--black); font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; }
+body { background: var(--bg); color: var(--black); font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; transition: background 0.2s, color 0.2s; }
 
 /* ── NAV ── */
 nav {
-  border-bottom: 1px solid var(--gray5);
-  background: var(--white);
+  border-bottom: 1px solid var(--nav-border);
+  background: var(--nav-bg);
   position: sticky; top: 0; z-index: 50;
+  transition: background 0.2s;
 }
 .nav-inner {
   max-width: 760px; margin: 0 auto; padding: 0 24px;
@@ -47,8 +66,16 @@ nav {
 
 .nav-search {
   position: absolute; right: 24px;
-  display: flex; align-items: center;
+  display: flex; align-items: center; gap: 8px;
 }
+
+.theme-toggle {
+  background: none; border: 1px solid var(--gray5);
+  border-radius: 6px; cursor: pointer; padding: 4px 8px;
+  font-size: 14px; line-height: 1; color: var(--gray2);
+  transition: border-color 0.15s;
+}
+.theme-toggle:hover { border-color: var(--gray3); }
 .search-wrap { position: relative; display: flex; align-items: center; }
 .search-input {
   font-family: 'Source Sans 3', sans-serif; font-size: 13px;
@@ -73,15 +100,18 @@ mark { background: #ffffaa; color: inherit; }
 /* ── HERO ── */
 .hero {
   max-width: 760px; margin: 0 auto;
-  padding: 60px 24px 52px;
+  padding: 0 24px;
+  min-height: calc(100vh - 50px);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
   text-align: center;
   border-bottom: 1px solid var(--gray5);
 }
 
 /* PHOTO */
-.photo-area { position: relative; display: inline-block; margin-bottom: 28px; }
+.photo-area { position: relative; display: inline-block; margin-bottom: 32px; }
 .profile-photo {
-  width: 180px; height: 180px; border-radius: 50%;
+  width: 220px; height: 220px; border-radius: 50%;
   object-fit: cover; object-position: top;
   border: 1px solid var(--gray5);
   display: block;
@@ -108,15 +138,15 @@ mark { background: #ffffaa; color: inherit; }
 /* NAME */
 .hero-name {
   font-family: 'Merriweather', serif;
-  font-size: 2.4rem; font-weight: 700;
+  font-size: 2.8rem; font-weight: 700;
   letter-spacing: -0.02em; color: var(--black);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .hero-title {
-  font-size: 15px; color: var(--gray2); margin-bottom: 6px;
+  font-size: 16px; color: var(--gray2); margin-bottom: 8px;
 }
 .hero-orgs {
-  font-size: 14px; color: var(--gray3); margin-bottom: 28px;
+  font-size: 14px; color: var(--gray3); margin-bottom: 36px;
 }
 
 /* ICON LINKS */
@@ -229,6 +259,7 @@ h2 {
       <li><a href="#" onclick="showTab('contact');return false;" data-tab="contact">Contact</a></li>
     </ul>
     <div class="nav-search">
+      <button class="theme-toggle" id="themeToggle">☀️</button>
       <div class="search-wrap" id="searchWrap">
         <input class="search-input" id="searchInput" type="text" placeholder="Search…" autocomplete="off">
         <button class="search-btn" id="searchBtn">
@@ -243,15 +274,8 @@ h2 {
 <!-- HERO — always visible -->
 <div class="hero">
 
-  <div class="photo-area" id="photoWrap">
-    <div class="photo-placeholder" id="photoPlaceholder" onclick="document.getElementById('photoInput').click()">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      <span class="photo-hint">Add photo</span>
-    </div>
-    <button class="photo-upload-btn" id="photoUploadBtn" title="Upload photo">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-    </button>
-    <input type="file" class="photo-upload-input" id="photoInput" accept="image/*">
+  <div class="photo-area">
+    <img src="https://github.com/sridipa.png" class="profile-photo" alt="Sridipa Dandapat">
   </div>
 
   <div class="hero-name">Sridipa Dandapat</div>
@@ -400,6 +424,17 @@ h2 {
 </div>
 
 <script>
+// THEME
+const html = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+function setTheme(t) {
+  html.dataset.theme = t;
+  themeToggle.textContent = t === 'light' ? '🌙' : '☀️';
+  localStorage.setItem('theme', t);
+}
+setTheme(localStorage.getItem('theme') || 'light');
+themeToggle.addEventListener('click', () => setTheme(html.dataset.theme === 'light' ? 'dark' : 'light'));
+
 // TAB SWITCHING
 function showTab(name) {
   // hide all
