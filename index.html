@@ -10,95 +10,57 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --white: #ffffff;
-  --black: #111111;
-  --gray1: #333333;
-  --gray2: #555555;
-  --gray3: #888888;
-  --gray4: #bbbbbb;
-  --gray5: #e8e8e8;
+  --black: #111;
+  --gray1: #333;
+  --gray2: #555;
+  --gray3: #888;
+  --gray4: #bbb;
+  --gray5: #e5e5e5;
   --gray6: #f5f5f5;
-  --accent: #111111;
+  --white: #fff;
   --link: #1a1a8c;
 }
 
 html { scroll-behavior: smooth; }
-
-body {
-  background: var(--white);
-  color: var(--black);
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-}
+body { background: var(--white); color: var(--black); font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.7; }
 
 /* ── NAV ── */
 nav {
   border-bottom: 1px solid var(--gray5);
   background: var(--white);
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  position: sticky; top: 0; z-index: 50;
 }
-
 .nav-inner {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 0 32px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  max-width: 760px; margin: 0 auto; padding: 0 24px;
+  height: 50px; display: flex; align-items: center; justify-content: center;
+  gap: 4px; position: relative;
 }
-
-.nav-name {
-  font-family: 'Merriweather', serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--black);
-  text-decoration: none;
-}
-
-.nav-links {
-  display: flex;
-  gap: 0;
-  list-style: none;
-}
-
+.nav-links { display: flex; gap: 2px; list-style: none; }
 .nav-links a {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--gray2);
-  text-decoration: none;
-  padding: 6px 14px;
+  font-size: 13.5px; color: var(--gray2);
+  text-decoration: none; padding: 6px 14px; border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
   border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
 }
+.nav-links a:hover { color: var(--black); background: var(--gray6); }
+.nav-links a.active { color: var(--black); font-weight: 600; border-bottom-color: var(--black); background: none; }
 
-.nav-links a:hover { color: var(--black); }
-.nav-links a.active { color: var(--black); border-bottom-color: var(--black); font-weight: 500; }
-
-.nav-right { display: flex; align-items: center; gap: 10px; }
-
-/* SEARCH */
+.nav-search {
+  position: absolute; right: 24px;
+  display: flex; align-items: center;
+}
 .search-wrap { position: relative; display: flex; align-items: center; }
 .search-input {
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 13px;
-  background: var(--gray6);
-  border: 1px solid var(--gray5);
-  color: var(--black);
-  padding: 5px 28px 5px 10px;
-  border-radius: 4px;
-  width: 0; opacity: 0;
-  transition: width 0.3s, opacity 0.3s;
-  outline: none;
+  font-family: 'Source Sans 3', sans-serif; font-size: 13px;
+  background: var(--gray6); border: 1px solid var(--gray5);
+  color: var(--black); padding: 5px 28px 5px 10px; border-radius: 4px;
+  width: 0; opacity: 0; transition: width 0.3s, opacity 0.3s; outline: none;
 }
-.search-wrap.open .search-input { width: 190px; opacity: 1; }
+.search-wrap.open .search-input { width: 180px; opacity: 1; }
 .search-input::placeholder { color: var(--gray3); }
 .search-btn { background: none; border: none; cursor: pointer; color: var(--gray3); padding: 4px; position: absolute; right: 4px; display: flex; align-items: center; }
 .search-btn:hover { color: var(--black); }
-.search-results { position: absolute; top: calc(100% + 6px); right: 0; width: 300px; background: var(--white); border: 1px solid var(--gray5); border-radius: 6px; max-height: 340px; overflow-y: auto; display: none; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.search-results { position: absolute; top: calc(100% + 6px); right: 0; width: 290px; background: var(--white); border: 1px solid var(--gray5); border-radius: 6px; max-height: 320px; overflow-y: auto; display: none; z-index: 100; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
 .search-results.show { display: block; }
 .search-result-item { padding: 10px 14px; border-bottom: 1px solid var(--gray5); cursor: pointer; }
 .search-result-item:last-child { border-bottom: none; }
@@ -108,313 +70,147 @@ nav {
 .no-results { padding: 14px; font-size: 12px; color: var(--gray3); text-align: center; }
 mark { background: #ffffaa; color: inherit; }
 
-/* ── MAIN WRAPPER ── */
-.wrapper { max-width: 860px; margin: 0 auto; padding: 0 32px; }
-
-/* ── PROFILE SECTION ── */
-.profile {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 40px;
-  padding: 52px 0 48px;
+/* ── HERO ── */
+.hero {
+  max-width: 760px; margin: 0 auto;
+  padding: 60px 24px 52px;
+  text-align: center;
   border-bottom: 1px solid var(--gray5);
 }
 
 /* PHOTO */
-.photo-area { position: relative; width: 160px; }
+.photo-area { position: relative; display: inline-block; margin-bottom: 28px; }
 .profile-photo {
-  width: 160px; height: 160px;
-  border-radius: 50%;
-  object-fit: cover;
+  width: 180px; height: 180px; border-radius: 50%;
+  object-fit: cover; object-position: top;
   border: 1px solid var(--gray5);
   display: block;
   filter: grayscale(100%);
 }
 .photo-placeholder {
-  width: 160px; height: 160px;
-  border-radius: 50%;
-  border: 1px dashed var(--gray4);
-  background: var(--gray6);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 8px; cursor: pointer; color: var(--gray3);
-  transition: border-color 0.15s;
+  width: 180px; height: 180px; border-radius: 50%;
+  border: 1px dashed var(--gray4); background: var(--gray6);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; cursor: pointer; color: var(--gray3); transition: border-color 0.15s;
 }
 .photo-placeholder:hover { border-color: var(--black); }
-.photo-hint { font-size: 11px; color: var(--gray3); text-align: center; line-height: 1.4; }
+.photo-hint { font-size: 11px; color: var(--gray3); }
 .photo-upload-btn {
-  position: absolute; bottom: 6px; right: 6px;
+  position: absolute; bottom: 8px; right: 8px;
   background: var(--black); border: 2px solid var(--white);
-  border-radius: 50%; width: 28px; height: 28px;
+  border-radius: 50%; width: 32px; height: 32px;
   cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
 }
 .photo-upload-btn:hover { background: var(--gray1); }
 .photo-upload-input { display: none; }
 
-/* PROFILE INFO */
-.profile-info { display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-
-.profile-name {
+/* NAME */
+.hero-name {
   font-family: 'Merriweather', serif;
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--black);
-  margin-bottom: 2px;
+  font-size: 2.4rem; font-weight: 700;
+  letter-spacing: -0.02em; color: var(--black);
+  margin-bottom: 10px;
+}
+.hero-title {
+  font-size: 15px; color: var(--gray2); margin-bottom: 6px;
+}
+.hero-orgs {
+  font-size: 14px; color: var(--gray3); margin-bottom: 28px;
 }
 
-.profile-title {
-  font-size: 15px;
-  color: var(--gray2);
-  font-weight: 400;
+/* ICON LINKS */
+.hero-links {
+  display: flex; justify-content: center;
+  flex-wrap: wrap; gap: 8px;
 }
-
-.profile-orgs {
-  font-size: 14px;
-  color: var(--gray3);
-  margin-bottom: 4px;
-}
-
-.profile-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.profile-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12.5px;
-  color: var(--gray2);
+.hero-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--gray2);
   text-decoration: none;
-  border: 1px solid var(--gray5);
-  border-radius: 4px;
-  padding: 4px 10px;
+  border: 1px solid var(--gray5); border-radius: 6px;
+  padding: 6px 14px;
   transition: border-color 0.15s, color 0.15s;
 }
+.hero-link:hover { border-color: var(--black); color: var(--black); }
+.hero-link svg { flex-shrink: 0; }
 
-.profile-link:hover { border-color: var(--black); color: var(--black); }
-.profile-link svg { flex-shrink: 0; }
-
-/* ── SECTIONS ── */
-.content { padding: 0; }
-
-section {
-  padding: 44px 0;
-  border-bottom: 1px solid var(--gray5);
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.5s, transform 0.5s;
+/* ── CONTENT AREA ── */
+.content-area {
+  max-width: 760px; margin: 0 auto; padding: 0 24px;
 }
 
-section.visible { opacity: 1; transform: translateY(0); }
+/* Each section is hidden by default, shown when active */
+.tab-section {
+  display: none;
+  padding: 44px 0 60px;
+  animation: fadeIn 0.25s ease;
+}
+.tab-section.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 h2 {
   font-family: 'Merriweather', serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 20px;
-  padding-bottom: 8px;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--black); margin-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 2px solid var(--black);
   display: inline-block;
 }
 
 /* BIO */
-.bio-text p {
-  font-size: 15.5px;
-  color: var(--gray1);
-  line-height: 1.85;
-  margin-bottom: 14px;
-}
-
-.bio-text a {
-  color: var(--link);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.15s;
-}
-
+.bio-text p { font-size: 15.5px; color: var(--gray1); line-height: 1.85; margin-bottom: 14px; }
+.bio-text a { color: var(--link); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
 .bio-text a:hover { border-bottom-color: var(--link); }
 
-/* RESEARCH INTERESTS */
-.interests-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
+.interests-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray3); margin-bottom: 10px; margin-top: 28px; display: block; }
+.interests-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.interest { font-size: 13px; padding: 4px 12px; border: 1px solid var(--gray5); border-radius: 3px; color: var(--gray2); background: var(--gray6); }
 
-.interest {
-  font-size: 13px;
-  padding: 4px 12px;
-  border: 1px solid var(--gray5);
-  border-radius: 3px;
-  color: var(--gray2);
-  background: var(--gray6);
-}
-
-/* APPOINTMENTS / LISTS */
-.entry-list { display: flex; flex-direction: column; gap: 0; }
-
-.entry {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 20px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--gray5);
-  font-size: 15px;
-}
-
+/* ENTRY LIST (appointments, fellowships, awards) */
+.entry-list { display: flex; flex-direction: column; }
+.entry { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--gray5); font-size: 15px; }
 .entry:first-child { border-top: 1px solid var(--gray5); }
-
-.entry-date {
-  font-size: 12px;
-  color: var(--gray3);
-  padding-top: 2px;
-  line-height: 1.5;
-}
-
+.entry-date { font-size: 12px; color: var(--gray3); padding-top: 2px; line-height: 1.5; }
 .entry-title { font-weight: 600; color: var(--black); margin-bottom: 2px; }
 .entry-sub { font-size: 13.5px; color: var(--gray2); }
 .entry-sub a { color: var(--link); text-decoration: none; }
 .entry-sub a:hover { text-decoration: underline; }
 
 /* PUBLICATIONS */
-.pub-item {
-  padding: 16px 0;
-  border-bottom: 1px solid var(--gray5);
-}
-
+.pub-item { padding: 18px 0; border-bottom: 1px solid var(--gray5); }
 .pub-item:first-child { border-top: 1px solid var(--gray5); }
-
-.pub-year {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--gray3);
-  background: var(--gray6);
-  border: 1px solid var(--gray5);
-  padding: 1px 7px;
-  border-radius: 3px;
-  margin-bottom: 6px;
-  font-family: monospace;
-  letter-spacing: 0.05em;
-}
-
-.pub-title {
-  font-family: 'Merriweather', serif;
-  font-size: 0.95rem;
-  font-weight: 400;
-  color: var(--black);
-  line-height: 1.55;
-  margin-bottom: 5px;
-}
-
-.pub-meta {
-  font-size: 13px;
-  color: var(--gray2);
-}
-
-.pub-meta em { font-style: italic; }
+.pub-year { display: inline-block; font-size: 11px; font-weight: 600; color: var(--gray3); background: var(--gray6); border: 1px solid var(--gray5); padding: 1px 7px; border-radius: 3px; margin-bottom: 7px; font-family: monospace; }
+.pub-title { font-family: 'Merriweather', serif; font-size: 0.96rem; font-weight: 400; color: var(--black); line-height: 1.6; margin-bottom: 5px; }
+.pub-meta { font-size: 13px; color: var(--gray2); }
 .pub-meta a { color: var(--link); text-decoration: none; }
 .pub-meta a:hover { text-decoration: underline; }
 
 /* PROJECTS */
-.project-list { display: flex; flex-direction: column; gap: 20px; }
-
-.project-item {
-  padding: 20px;
-  border: 1px solid var(--gray5);
-  border-radius: 4px;
-  transition: border-color 0.15s;
-}
-
+.project-list { display: flex; flex-direction: column; gap: 16px; }
+.project-item { padding: 22px; border: 1px solid var(--gray5); border-radius: 6px; transition: border-color 0.15s; }
 .project-item:hover { border-color: var(--black); }
-
-.project-tag {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--gray3);
-  margin-bottom: 6px;
-}
-
-.project-name {
-  font-family: 'Merriweather', serif;
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--black);
-}
-
-.project-desc {
-  font-size: 14px;
-  color: var(--gray2);
-  line-height: 1.6;
-  margin-bottom: 10px;
-}
-
-.project-link {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--link);
-  text-decoration: none;
-}
-
+.project-tag { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray3); margin-bottom: 6px; }
+.project-name { font-family: 'Merriweather', serif; font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--black); }
+.project-desc { font-size: 14px; color: var(--gray2); line-height: 1.65; margin-bottom: 12px; }
+.project-link { font-size: 13px; font-weight: 500; color: var(--link); text-decoration: none; }
 .project-link:hover { text-decoration: underline; }
 
 /* CONTACT */
-.contact-note {
-  font-size: 15px;
-  color: var(--gray1);
-  margin-bottom: 24px;
-}
-
-.contact-items {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 1px solid var(--gray5);
-  border-radius: 4px;
-  text-decoration: none;
-  color: var(--black);
-  transition: border-color 0.15s;
-}
-
-.contact-item:hover { border-color: var(--black); }
-.contact-item svg { color: var(--gray3); flex-shrink: 0; }
-.contact-name { font-weight: 500; font-size: 14px; display: block; }
+.contact-note { font-size: 15.5px; color: var(--gray1); margin-bottom: 28px; line-height: 1.7; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.contact-card { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border: 1px solid var(--gray5); border-radius: 6px; text-decoration: none; color: var(--black); transition: border-color 0.15s; }
+.contact-card:hover { border-color: var(--black); }
+.contact-card svg { color: var(--gray3); flex-shrink: 0; }
+.contact-label { font-weight: 500; font-size: 14px; display: block; }
 .contact-val { font-size: 12px; color: var(--gray3); display: block; margin-top: 1px; }
 
-/* FOOTER */
-footer {
-  padding: 28px 32px;
-  text-align: center;
-  font-size: 12px;
-  color: var(--gray3);
-  border-top: 1px solid var(--gray5);
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-@media (max-width: 640px) {
-  .profile { grid-template-columns: 1fr; text-align: center; }
-  .photo-area { margin: 0 auto; }
-  .profile-links { justify-content: center; }
+@media (max-width: 600px) {
+  .hero-name { font-size: 1.8rem; }
   .entry { grid-template-columns: 1fr; gap: 2px; }
-  .contact-items { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .nav-search { display: none; }
 }
 </style>
 </head>
@@ -423,17 +219,16 @@ footer {
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-name">Sridipa Dandapat</a>
     <ul class="nav-links">
-      <li><a href="#about" class="active">About</a></li>
-      <li><a href="#appointments">Appointments</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#fellowships">Fellowships</a></li>
-      <li><a href="#awards">Awards</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" onclick="showTab('about');return false;" class="active" data-tab="about">About</a></li>
+      <li><a href="#" onclick="showTab('appointments');return false;" data-tab="appointments">Appointments</a></li>
+      <li><a href="#" onclick="showTab('projects');return false;" data-tab="projects">Projects</a></li>
+      <li><a href="#" onclick="showTab('publications');return false;" data-tab="publications">Publications</a></li>
+      <li><a href="#" onclick="showTab('fellowships');return false;" data-tab="fellowships">Fellowships</a></li>
+      <li><a href="#" onclick="showTab('awards');return false;" data-tab="awards">Awards</a></li>
+      <li><a href="#" onclick="showTab('contact');return false;" data-tab="contact">Contact</a></li>
     </ul>
-    <div class="nav-right">
+    <div class="nav-search">
       <div class="search-wrap" id="searchWrap">
         <input class="search-input" id="searchInput" type="text" placeholder="Search…" autocomplete="off">
         <button class="search-btn" id="searchBtn">
@@ -445,280 +240,233 @@ footer {
   </div>
 </nav>
 
-<div class="wrapper">
+<!-- HERO — always visible -->
+<div class="hero">
 
-  <!-- PROFILE -->
-  <div class="profile">
-
-    <div class="photo-area" id="photoWrap">
-      <div class="photo-placeholder" id="photoPlaceholder">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        <span class="photo-hint">Click + to<br>add photo</span>
-      </div>
-      <button class="photo-upload-btn" id="photoUploadBtn" title="Upload your photo">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      </button>
-      <input type="file" class="photo-upload-input" id="photoInput" accept="image/*">
+  <div class="photo-area" id="photoWrap">
+    <div class="photo-placeholder" id="photoPlaceholder" onclick="document.getElementById('photoInput').click()">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span class="photo-hint">Add photo</span>
     </div>
-
-    <div class="profile-info">
-      <div class="profile-name">Sridipa Dandapat</div>
-      <div class="profile-title">PhD &nbsp;·&nbsp; Scholar, Editor &amp; Researcher</div>
-      <div class="profile-orgs">IIT Patna &nbsp;·&nbsp; Edinburgh University Press &nbsp;·&nbsp; Room to Read India</div>
-
-      <div class="profile-links">
-        <a href="mailto:sridipa.dandapat@gmail.com" class="profile-link">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-          Email
-        </a>
-        <a href="https://www.linkedin.com/in/sridipa-dandapat" class="profile-link" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
-          LinkedIn
-        </a>
-        <a href="https://orcid.org/0000-0002-3788-7210" class="profile-link" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
-          ORCID
-        </a>
-        <a href="https://github.com/sridipa" class="profile-link" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
-        </a>
-        <a href="https://github.com/sridipa/cv/raw/main/Sridipa_CV.pdf" class="profile-link" target="_blank" rel="noopener">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-          CV / Resume
-        </a>
-      </div>
-    </div>
-
+    <button class="photo-upload-btn" id="photoUploadBtn" title="Upload photo">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <input type="file" class="photo-upload-input" id="photoInput" accept="image/*">
   </div>
 
-  <div class="content">
+  <div class="hero-name">Sridipa Dandapat</div>
+  <div class="hero-title">PhD &nbsp;·&nbsp; Scholar, Editor &amp; Researcher</div>
+  <div class="hero-orgs">IIT Patna &nbsp;·&nbsp; Edinburgh University Press &nbsp;·&nbsp; Room to Read India</div>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <h2>About Me</h2>
-      <div class="bio-text">
-        <p>I am a scholar working at the intersection of gender studies, children's literature, and digital humanities, with a focus on South Asian fiction and picturebook archives. I hold a <a href="https://www.iitp.ac.in/index.php/en-us/departments/humanities-and-social-sciences" target="_blank" rel="noopener">PhD from IIT Patna</a> (Humanities and Social Sciences).</p>
-        <p>Since September 2024, I serve as <a href="https://www.euppublishing.com/journal/ircl" target="_blank" rel="noopener">Executive Editor of <em>International Research in Children's Literature</em></a> (Edinburgh University Press). I am currently an Associate with the <a href="https://www.roomtoread.org" target="_blank" rel="noopener">Quality Reading Material team at Room to Read India</a>, supporting research synthesis and cross-functional coordination to advance inclusive education globally.</p>
-        <p>I was a <a href="https://hdsm.hypotheses.org/6173" target="_blank" rel="noopener">Visiting Researcher at TU Darmstadt</a> (Oct 2025), consulting on South Asian digital repositories and NGO-led open-access platforms. I am also a recipient of the <a href="https://www.ijb.de/en/fellowship/" target="_blank" rel="noopener">International Youth Library Fellowship</a> (Munich) and multiple international research awards.</p>
-      </div>
-
-      <div style="margin-top:28px;">
-        <strong style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray3);">Research Interests</strong>
-        <div class="interests-list">
-          <span class="interest">Gender Studies &amp; Social Justice</span>
-          <span class="interest">South Asian Children's Literature</span>
-          <span class="interest">Digital Humanities</span>
-          <span class="interest">Picturebook Studies</span>
-          <span class="interest">Multimodal Analysis</span>
-          <span class="interest">Postcolonial Theory</span>
-          <span class="interest">Adivasi &amp; Dalit Representation</span>
-          <span class="interest">TEI / Scholarly Encoding</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- APPOINTMENTS -->
-    <section id="appointments">
-      <h2>Professional Appointments</h2>
-      <div class="entry-list">
-        <div class="entry"><div class="entry-date">Sept 2024 – present</div><div><div class="entry-title">Executive Editor</div><div class="entry-sub"><a href="https://www.euppublishing.com/journal/ircl" target="_blank" rel="noopener">International Research in Children's Literature</a>, Edinburgh University Press</div></div></div>
-        <div class="entry"><div class="entry-date">May 2025 – present</div><div><div class="entry-title">Associate, Quality Reading Material</div><div class="entry-sub"><a href="https://www.roomtoread.org" target="_blank" rel="noopener">Room to Read India</a></div></div></div>
-        <div class="entry"><div class="entry-date">Feb 2025 – present</div><div><div class="entry-title">Diversity Committee Member</div><div class="entry-sub"><a href="https://www.childlitassn.org" target="_blank" rel="noopener">Children's Literature Association</a>, USA</div></div></div>
-        <div class="entry"><div class="entry-date">Ongoing</div><div><div class="entry-title">Peer Reviewer</div><div class="entry-sub">Springer Nature · Elsevier</div></div></div>
-        <div class="entry"><div class="entry-date">Oct 2025</div><div><div class="entry-title">Visiting Researcher — Digital Humanities</div><div class="entry-sub"><a href="https://www.tu-darmstadt.de" target="_blank" rel="noopener">Technische Universität Darmstadt</a>, Germany</div></div></div>
-        <div class="entry"><div class="entry-date">2023</div><div><div class="entry-title">Invited Lecture</div><div class="entry-sub">"Social Justice and Indian Children's Literature" — <a href="https://www.memphis.edu" target="_blank" rel="noopener">University of Memphis</a>, USA</div></div></div>
-        <div class="entry"><div class="entry-date">2025</div><div><div class="entry-title">Invited Lecture</div><div class="entry-sub">"From Ideation to Publication in High-Impact Journals" — Wordsmith Symposium Series</div></div></div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects">
-      <h2>Digital Humanities Projects</h2>
-      <div class="project-list">
-        <div class="project-item">
-          <div class="project-tag">Multimodal Analysis · TU Darmstadt, 2025</div>
-          <div class="project-name">DH StoryWeaver</div>
-          <div class="project-desc">Multimodal analysis of gender and STEAM representation in the Global South picturebook archive StoryWeaver. Conducted during the Future Talent Visiting Fellowship at TU Darmstadt.</div>
-          <a href="https://github.com/sridipa/DH_StoryWeaver" class="project-link" target="_blank" rel="noopener">↗ View on GitHub</a>
-        </div>
-        <div class="project-item">
-          <div class="project-tag">TEI P5 · XSLT · Dublin Core RDF</div>
-          <div class="project-name">TEI Voltaire</div>
-          <div class="project-desc">TEI P5 encoding of Voltaire's <em>Candide</em> with XSLT → HTML transformation pipeline and Dublin Core RDF metadata extraction. Built in oXygen XML Editor.</div>
-          <a href="https://github.com/sridipa/tei-voltaire" class="project-link" target="_blank" rel="noopener">↗ View on GitHub</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- PUBLICATIONS -->
-    <section id="publications">
-      <h2>Selected Publications</h2>
-
-      <div class="pub-item">
-        <div class="pub-year">2025</div>
-        <div class="pub-title">Diverse Childhoods: Contextualizing Childhood and the Lives of Adivasi in Select Indian Picturebooks</div>
-        <div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Diversity in Children's Literature</em></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-year">2025</div>
-        <div class="pub-title">Gendered Body: (En)Countering Sexual Violence and Gender Dystopia in Manish Jha's <em>Matrubhoomi</em></div>
-        <div class="pub-meta">Dandapat, S., Tripathi, P. · <em>The Routledge Handbook of Indian Indie Cinema</em></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-year">2024</div>
-        <div class="pub-title">Negotiating Adivasi Identity: A Multimodal Analysis of Indian Picturebook <em>The Why-Why Girl</em></div>
-        <div class="pub-meta">Dandapat, S., Tripathi, P. · <a href="https://www.childlitassn.org/childrens-literature-association-quarterly" target="_blank" rel="noopener"><em>Children's Literature Association Quarterly</em></a></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-year">2024</div>
-        <div class="pub-title">Tracing Memory, Trauma, and Childhood: The Bangladesh Liberation War in Sorayya Khan's <em>Noor</em></div>
-        <div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Journal of War &amp; Culture Studies</em></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-year">2024</div>
-        <div class="pub-title">From Drains and Gutters: Picturing Childhood Amid Manual Scavenging</div>
-        <div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Children's Literature in Education</em></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-year">2023</div>
-        <div class="pub-title">Rethinking Resilience: Addressing Dalit Childhood in Select Indian Picturebooks</div>
-        <div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Contemporary Voice of Dalit</em></div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-year">2022</div>
-        <div class="pub-title">Making Men out of Boys: Revisiting Connell through Twenty-First-Century India Picturebooks</div>
-        <div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Boyhood Studies</em>, 15(1–2), 80–93</div>
-      </div>
-      <div class="pub-item">
-        <div class="pub-year">2020</div>
-        <div class="pub-title">Representation of the Adivasis: An Intersectional Study of Gender through Select Indian Picture Books in English</div>
-        <div class="pub-meta">Dandapat, S., Tripathi, P. · <em>New Review of Children's Literature and Librarianship</em>, 26(1–2), 38–53</div>
-      </div>
-    </section>
-
-    <!-- FELLOWSHIPS -->
-    <section id="fellowships">
-      <h2>Fellowships</h2>
-      <div class="entry-list">
-        <div class="entry"><div class="entry-date">2025</div><div><div class="entry-title">Future Talent Guest Stay</div><div class="entry-sub"><a href="https://www.tu-darmstadt.de" target="_blank" rel="noopener">Technische Universität Darmstadt</a>, Germany</div></div></div>
-        <div class="entry"><div class="entry-date">2024</div><div><div class="entry-title">International Youth Library Fellowship</div><div class="entry-sub"><a href="https://www.ijb.de/en/fellowship/" target="_blank" rel="noopener">International Youth Library</a>, Munich, Germany &nbsp;·&nbsp; Sept – Dec 2024</div></div></div>
-        <div class="entry"><div class="entry-date">2019</div><div><div class="entry-title">Junior Research Fellowship (UGC-NET)</div><div class="entry-sub"><a href="https://ugcnet.nta.ac.in" target="_blank" rel="noopener">University Grants Commission</a>, India</div></div></div>
-      </div>
-    </section>
-
-    <!-- AWARDS -->
-    <section id="awards">
-      <h2>Awards &amp; Grants</h2>
-      <div class="entry-list">
-        <div class="entry"><div class="entry-date">June 2023</div><div><div class="entry-title">Graduate Student Honorary Essay Award</div><div class="entry-sub"><a href="https://www.childlitassn.org" target="_blank" rel="noopener">Children's Literature Association (ChLA)</a>, USA</div></div></div>
-        <div class="entry"><div class="entry-date">June 2023</div><div><div class="entry-title">June Cummins Diversity Conference Travel Grant</div><div class="entry-sub"><a href="https://www.childlitassn.org" target="_blank" rel="noopener">Children's Literature Association (ChLA)</a>, USA</div></div></div>
-        <div class="entry"><div class="entry-date">Aug 2023</div><div><div class="entry-title">Conference Travel Grant</div><div class="entry-sub"><a href="https://www.irscl.com" target="_blank" rel="noopener">International Research Society for Children's Literature (IRSCL)</a></div></div></div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <p class="contact-note">✉ <strong>Email is the best way to reach me.</strong> I welcome conversations on research collaborations at the intersection of education, children's literature, and social justice.</p>
-      <div class="contact-items">
-        <a href="mailto:sridipa.dandapat@gmail.com" class="contact-item">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-          <div><span class="contact-name">Email</span><span class="contact-val">sridipa.dandapat@gmail.com</span></div>
-        </a>
-        <a href="https://www.linkedin.com/in/sridipa-dandapat" class="contact-item" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
-          <div><span class="contact-name">LinkedIn</span><span class="contact-val">sridipa-dandapat</span></div>
-        </a>
-        <a href="https://orcid.org/0000-0002-3788-7210" class="contact-item" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
-          <div><span class="contact-name">ORCID</span><span class="contact-val">0000-0002-3788-7210</span></div>
-        </a>
-        <a href="https://github.com/sridipa/cv/raw/main/Sridipa_CV.pdf" class="contact-item" target="_blank" rel="noopener">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-          <div><span class="contact-name">Download CV</span><span class="contact-val">PDF</span></div>
-        </a>
-      </div>
-    </section>
-
+  <div class="hero-links">
+    <a href="mailto:sridipa.dandapat@gmail.com" class="hero-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+      Email
+    </a>
+    <a href="https://www.linkedin.com/in/sridipa-dandapat" class="hero-link" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://orcid.org/0000-0002-3788-7210" class="hero-link" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
+      ORCID
+    </a>
+    <a href="https://github.com/sridipa" class="hero-link" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+    <a href="https://github.com/sridipa/cv/raw/main/Sridipa_CV.pdf" class="hero-link" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+      CV / Resume
+    </a>
   </div>
 
-  <footer>© 2026 Sridipa Dandapat, PhD &nbsp;·&nbsp; IIT Patna · Edinburgh University Press · Room to Read India</footer>
+</div>
+
+<!-- CONTENT TABS -->
+<div class="content-area">
+
+  <!-- ABOUT -->
+  <div class="tab-section active" id="tab-about">
+    <h2>About Me</h2>
+    <div class="bio-text">
+      <p>I am a scholar working at the intersection of gender studies, children's literature, and digital humanities, with a focus on South Asian fiction and picturebook archives. I hold a <a href="https://www.iitp.ac.in/index.php/en-us/departments/humanities-and-social-sciences" target="_blank" rel="noopener">PhD from IIT Patna</a> (Humanities and Social Sciences).</p>
+      <p>Since September 2024, I serve as <a href="https://www.euppublishing.com/journal/ircl" target="_blank" rel="noopener">Executive Editor of <em>International Research in Children's Literature</em></a> (Edinburgh University Press). I am currently an Associate with the <a href="https://www.roomtoread.org" target="_blank" rel="noopener">Quality Reading Material team at Room to Read India</a>, supporting research synthesis and cross-functional coordination to advance inclusive education globally.</p>
+      <p>I was a <a href="https://hdsm.hypotheses.org/6173" target="_blank" rel="noopener">Visiting Researcher at TU Darmstadt</a> (Oct 2025), consulting on South Asian digital repositories and NGO-led open-access platforms. I am also a recipient of the <a href="https://www.ijb.de/en/fellowship/" target="_blank" rel="noopener">International Youth Library Fellowship</a> (Munich) and multiple international research awards.</p>
+    </div>
+    <span class="interests-label">Research Interests</span>
+    <div class="interests-list">
+      <span class="interest">Gender Studies &amp; Social Justice</span>
+      <span class="interest">South Asian Children's Literature</span>
+      <span class="interest">Digital Humanities</span>
+      <span class="interest">Picturebook Studies</span>
+      <span class="interest">Multimodal Analysis</span>
+      <span class="interest">Postcolonial Theory</span>
+      <span class="interest">Adivasi &amp; Dalit Representation</span>
+      <span class="interest">TEI / Scholarly Encoding</span>
+    </div>
+  </div>
+
+  <!-- APPOINTMENTS -->
+  <div class="tab-section" id="tab-appointments">
+    <h2>Professional Appointments</h2>
+    <div class="entry-list">
+      <div class="entry"><div class="entry-date">Sept 2024 – present</div><div><div class="entry-title">Executive Editor</div><div class="entry-sub"><a href="https://www.euppublishing.com/journal/ircl" target="_blank" rel="noopener">International Research in Children's Literature</a>, Edinburgh University Press</div></div></div>
+      <div class="entry"><div class="entry-date">May 2025 – present</div><div><div class="entry-title">Associate, Quality Reading Material</div><div class="entry-sub"><a href="https://www.roomtoread.org" target="_blank" rel="noopener">Room to Read India</a></div></div></div>
+      <div class="entry"><div class="entry-date">Feb 2025 – present</div><div><div class="entry-title">Diversity Committee Member</div><div class="entry-sub"><a href="https://www.childlitassn.org" target="_blank" rel="noopener">Children's Literature Association</a>, USA</div></div></div>
+      <div class="entry"><div class="entry-date">Ongoing</div><div><div class="entry-title">Peer Reviewer</div><div class="entry-sub">Springer Nature · Elsevier</div></div></div>
+      <div class="entry"><div class="entry-date">Oct 2025</div><div><div class="entry-title">Visiting Researcher — Digital Humanities</div><div class="entry-sub"><a href="https://www.tu-darmstadt.de" target="_blank" rel="noopener">Technische Universität Darmstadt</a>, Germany</div></div></div>
+      <div class="entry"><div class="entry-date">2023</div><div><div class="entry-title">Invited Lecture</div><div class="entry-sub">"Social Justice and Indian Children's Literature" — <a href="https://www.memphis.edu" target="_blank" rel="noopener">University of Memphis</a>, USA</div></div></div>
+      <div class="entry"><div class="entry-date">2025</div><div><div class="entry-title">Invited Lecture</div><div class="entry-sub">"From Ideation to Publication in High-Impact Journals" — Wordsmith Symposium Series</div></div></div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="tab-section" id="tab-projects">
+    <h2>Digital Humanities Projects</h2>
+    <div class="project-list">
+      <div class="project-item">
+        <div class="project-tag">Multimodal Analysis · TU Darmstadt, 2025</div>
+        <div class="project-name">DH StoryWeaver</div>
+        <div class="project-desc">Multimodal analysis of gender and STEAM representation in the Global South picturebook archive StoryWeaver. Conducted during the Future Talent Visiting Fellowship at TU Darmstadt.</div>
+        <a href="https://github.com/sridipa/DH_StoryWeaver" class="project-link" target="_blank" rel="noopener">↗ View on GitHub</a>
+      </div>
+      <div class="project-item">
+        <div class="project-tag">TEI P5 · XSLT · Dublin Core RDF</div>
+        <div class="project-name">TEI Voltaire</div>
+        <div class="project-desc">TEI P5 encoding of Voltaire's <em>Candide</em> with XSLT → HTML transformation pipeline and Dublin Core RDF metadata extraction. Built in oXygen XML Editor.</div>
+        <a href="https://github.com/sridipa/tei-voltaire" class="project-link" target="_blank" rel="noopener">↗ View on GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUBLICATIONS -->
+  <div class="tab-section" id="tab-publications">
+    <h2>Selected Publications</h2>
+    <div class="pub-item"><div class="pub-year">2025</div><div class="pub-title">Diverse Childhoods: Contextualizing Childhood and the Lives of Adivasi in Select Indian Picturebooks</div><div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Diversity in Children's Literature</em></div></div>
+    <div class="pub-item"><div class="pub-year">2025</div><div class="pub-title">Gendered Body: (En)Countering Sexual Violence and Gender Dystopia in Manish Jha's <em>Matrubhoomi</em></div><div class="pub-meta">Dandapat, S., Tripathi, P. · <em>The Routledge Handbook of Indian Indie Cinema</em></div></div>
+    <div class="pub-item"><div class="pub-year">2024</div><div class="pub-title">Negotiating Adivasi Identity: A Multimodal Analysis of Indian Picturebook <em>The Why-Why Girl</em></div><div class="pub-meta">Dandapat, S., Tripathi, P. · <a href="https://www.childlitassn.org/childrens-literature-association-quarterly" target="_blank" rel="noopener"><em>Children's Literature Association Quarterly</em></a></div></div>
+    <div class="pub-item"><div class="pub-year">2024</div><div class="pub-title">Tracing Memory, Trauma, and Childhood: The Bangladesh Liberation War in Sorayya Khan's <em>Noor</em></div><div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Journal of War &amp; Culture Studies</em></div></div>
+    <div class="pub-item"><div class="pub-year">2024</div><div class="pub-title">From Drains and Gutters: Picturing Childhood Amid Manual Scavenging</div><div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Children's Literature in Education</em></div></div>
+    <div class="pub-item"><div class="pub-year">2023</div><div class="pub-title">Rethinking Resilience: Addressing Dalit Childhood in Select Indian Picturebooks</div><div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Contemporary Voice of Dalit</em></div></div>
+    <div class="pub-item"><div class="pub-year">2022</div><div class="pub-title">Making Men out of Boys: Revisiting Connell through Twenty-First-Century India Picturebooks</div><div class="pub-meta">Dandapat, S., Tripathi, P. · <em>Boyhood Studies</em>, 15(1–2), 80–93</div></div>
+    <div class="pub-item"><div class="pub-year">2020</div><div class="pub-title">Representation of the Adivasis: An Intersectional Study of Gender through Select Indian Picture Books in English</div><div class="pub-meta">Dandapat, S., Tripathi, P. · <em>New Review of Children's Literature and Librarianship</em>, 26(1–2), 38–53</div></div>
+  </div>
+
+  <!-- FELLOWSHIPS -->
+  <div class="tab-section" id="tab-fellowships">
+    <h2>Fellowships</h2>
+    <div class="entry-list">
+      <div class="entry"><div class="entry-date">2025</div><div><div class="entry-title">Future Talent Guest Stay</div><div class="entry-sub"><a href="https://www.tu-darmstadt.de" target="_blank" rel="noopener">Technische Universität Darmstadt</a>, Germany</div></div></div>
+      <div class="entry"><div class="entry-date">2024</div><div><div class="entry-title">International Youth Library Fellowship</div><div class="entry-sub"><a href="https://www.ijb.de/en/fellowship/" target="_blank" rel="noopener">International Youth Library</a>, Munich, Germany · Sept – Dec 2024</div></div></div>
+      <div class="entry"><div class="entry-date">2019</div><div><div class="entry-title">Junior Research Fellowship (UGC-NET)</div><div class="entry-sub"><a href="https://ugcnet.nta.ac.in" target="_blank" rel="noopener">University Grants Commission</a>, India</div></div></div>
+    </div>
+  </div>
+
+  <!-- AWARDS -->
+  <div class="tab-section" id="tab-awards">
+    <h2>Awards &amp; Grants</h2>
+    <div class="entry-list">
+      <div class="entry"><div class="entry-date">June 2023</div><div><div class="entry-title">Graduate Student Honorary Essay Award</div><div class="entry-sub"><a href="https://www.childlitassn.org" target="_blank" rel="noopener">Children's Literature Association (ChLA)</a>, USA</div></div></div>
+      <div class="entry"><div class="entry-date">June 2023</div><div><div class="entry-title">June Cummins Diversity Conference Travel Grant</div><div class="entry-sub"><a href="https://www.childlitassn.org" target="_blank" rel="noopener">Children's Literature Association (ChLA)</a>, USA</div></div></div>
+      <div class="entry"><div class="entry-date">Aug 2023</div><div><div class="entry-title">Conference Travel Grant</div><div class="entry-sub"><a href="https://www.irscl.com" target="_blank" rel="noopener">International Research Society for Children's Literature (IRSCL)</a></div></div></div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="tab-section" id="tab-contact">
+    <h2>Contact</h2>
+    <p class="contact-note">✉ <strong>Email is the best way to reach me.</strong><br>I welcome conversations on research collaborations at the intersection of education, children's literature, and social justice.</p>
+    <div class="contact-grid">
+      <a href="mailto:sridipa.dandapat@gmail.com" class="contact-card">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        <div><span class="contact-label">Email</span><span class="contact-val">sridipa.dandapat@gmail.com</span></div>
+      </a>
+      <a href="https://www.linkedin.com/in/sridipa-dandapat" class="contact-card" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+        <div><span class="contact-label">LinkedIn</span><span class="contact-val">sridipa-dandapat</span></div>
+      </a>
+      <a href="https://orcid.org/0000-0002-3788-7210" class="contact-card" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="7" x2="12" y2="17"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
+        <div><span class="contact-label">ORCID</span><span class="contact-val">0000-0002-3788-7210</span></div>
+      </a>
+      <a href="https://github.com/sridipa/cv/raw/main/Sridipa_CV.pdf" class="contact-card" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+        <div><span class="contact-label">Download CV</span><span class="contact-val">PDF</span></div>
+      </a>
+    </div>
+  </div>
 
 </div>
 
 <script>
+// TAB SWITCHING
+function showTab(name) {
+  // hide all
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  // show selected
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector(`[data-tab="${name}"]`).classList.add('active');
+  // scroll hero into view smoothly
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // PHOTO UPLOAD
-const photoUploadBtn = document.getElementById('photoUploadBtn');
-const photoInput = document.getElementById('photoInput');
-const photoPlaceholder = document.getElementById('photoPlaceholder');
-const photoWrap = document.getElementById('photoWrap');
-photoUploadBtn.addEventListener('click', () => photoInput.click());
-photoInput.addEventListener('change', e => {
+document.getElementById('photoUploadBtn').addEventListener('click', () => document.getElementById('photoInput').click());
+document.getElementById('photoInput').addEventListener('change', e => {
   const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
-    const ex = photoWrap.querySelector('.profile-photo'); if (ex) ex.remove();
-    photoPlaceholder.style.display = 'none';
+    const wrap = document.getElementById('photoWrap');
+    const ex = wrap.querySelector('.profile-photo'); if (ex) ex.remove();
+    document.getElementById('photoPlaceholder').style.display = 'none';
     const img = document.createElement('img');
-    img.src = ev.target.result;
-    img.className = 'profile-photo';
-    img.alt = 'Sridipa Dandapat';
-    photoWrap.insertBefore(img, photoUploadBtn);
+    img.src = ev.target.result; img.className = 'profile-photo'; img.alt = 'Sridipa Dandapat';
+    wrap.insertBefore(img, document.getElementById('photoUploadBtn'));
   };
   reader.readAsDataURL(file);
 });
 
 // SEARCH
 const idx = [
-  {s:'About',a:'#about',t:'IIT Patna PhD gender studies children literature digital humanities Room to Read TU Darmstadt Edinburgh social justice picturebook multimodal TEI'},
-  {s:'Project: DH StoryWeaver',a:'#projects',t:'DH StoryWeaver multimodal gender STEAM picturebook TU Darmstadt Global South'},
-  {s:'Project: TEI Voltaire',a:'#projects',t:'TEI Voltaire XSLT Dublin Core RDF XML oXygen Candide encoding'},
-  {s:'Appointment: Executive Editor',a:'#appointments',t:'Executive Editor International Research Children Literature Edinburgh IRCL'},
-  {s:'Appointment: Room to Read',a:'#appointments',t:'Room to Read India QRM Quality Reading Material'},
-  {s:'Appointment: ChLA',a:'#appointments',t:'Diversity Committee Children Literature Association ChLA USA'},
-  {s:'Appointment: TU Darmstadt',a:'#appointments',t:'Visiting Researcher TU Darmstadt Digital Humanities Germany 2025'},
-  {s:'Pub (2025): Diverse Childhoods',a:'#publications',t:'Diverse Childhoods Adivasi Picturebooks 2025'},
-  {s:'Pub (2025): Gendered Body',a:'#publications',t:'Gendered Body Matrubhoomi Routledge Indie Cinema 2025'},
-  {s:'Pub (2024): Why-Why Girl',a:'#publications',t:'Adivasi Identity Why-Why Girl ChLA Quarterly 2024'},
-  {s:'Pub (2024): Bangladesh War',a:'#publications',t:'Memory Trauma Bangladesh Sorayya Khan Noor 2024'},
-  {s:'Pub (2024): Manual Scavenging',a:'#publications',t:'Drains Gutters Manual Scavenging 2024'},
-  {s:'Pub (2023): Dalit Childhood',a:'#publications',t:'Resilience Dalit Childhood Picturebooks 2023'},
-  {s:'Pub (2022): Boyhood Studies',a:'#publications',t:'Making Men Boys Connell Boyhood Studies 2022'},
-  {s:'Pub (2020): Adivasi Gender',a:'#publications',t:'Adivasi Intersectional Gender Picture Books New Review 2020'},
-  {s:'Fellowship: IYL Munich',a:'#fellowships',t:'International Youth Library Fellowship Munich Germany 2024'},
-  {s:'Fellowship: TU Darmstadt',a:'#fellowships',t:'Future Talent Guest Stay TU Darmstadt 2025'},
-  {s:'Fellowship: UGC-NET',a:'#fellowships',t:'Junior Research Fellowship UGC NET 2019 India'},
-  {s:'Award: ChLA Essay',a:'#awards',t:'ChLA Graduate Student Honorary Essay Award 2023'},
-  {s:'Grant: Diversity Travel',a:'#awards',t:'June Cummins Diversity Travel Grant ChLA 2023'},
-  {s:'Grant: IRSCL',a:'#awards',t:'Conference Travel Grant IRSCL 2023'},
-  {s:'Contact',a:'#contact',t:'email LinkedIn ORCID CV sridipa.dandapat'},
+  {s:'About',tab:'about',t:'IIT Patna PhD gender studies children literature digital humanities Room to Read TU Darmstadt Edinburgh social justice picturebook multimodal TEI'},
+  {s:'Project: DH StoryWeaver',tab:'projects',t:'DH StoryWeaver multimodal gender STEAM picturebook TU Darmstadt Global South'},
+  {s:'Project: TEI Voltaire',tab:'projects',t:'TEI Voltaire XSLT Dublin Core RDF XML oXygen Candide encoding'},
+  {s:'Appointment: Executive Editor',tab:'appointments',t:'Executive Editor International Research Children Literature Edinburgh IRCL'},
+  {s:'Appointment: Room to Read',tab:'appointments',t:'Room to Read India QRM Quality Reading Material'},
+  {s:'Appointment: ChLA',tab:'appointments',t:'Diversity Committee Children Literature Association ChLA USA'},
+  {s:'Appointment: Visiting Researcher',tab:'appointments',t:'Visiting Researcher TU Darmstadt Digital Humanities Germany 2025'},
+  {s:'Pub (2025): Diverse Childhoods',tab:'publications',t:'Diverse Childhoods Adivasi Picturebooks 2025'},
+  {s:'Pub (2025): Gendered Body',tab:'publications',t:'Gendered Body Matrubhoomi Routledge Indie Cinema 2025'},
+  {s:'Pub (2024): Why-Why Girl',tab:'publications',t:'Adivasi Identity Why-Why Girl ChLA Quarterly 2024'},
+  {s:'Pub (2024): Bangladesh War',tab:'publications',t:'Memory Trauma Bangladesh Sorayya Khan Noor 2024'},
+  {s:'Pub (2024): Manual Scavenging',tab:'publications',t:'Drains Gutters Manual Scavenging 2024'},
+  {s:'Pub (2023): Dalit Childhood',tab:'publications',t:'Resilience Dalit Childhood Picturebooks 2023'},
+  {s:'Pub (2022): Boyhood Studies',tab:'publications',t:'Making Men Boys Connell Boyhood Studies 2022'},
+  {s:'Pub (2020): Adivasi Gender',tab:'publications',t:'Adivasi Intersectional Gender Picture Books New Review 2020'},
+  {s:'Fellowship: IYL Munich',tab:'fellowships',t:'International Youth Library Fellowship Munich Germany 2024'},
+  {s:'Fellowship: TU Darmstadt',tab:'fellowships',t:'Future Talent Guest Stay TU Darmstadt 2025'},
+  {s:'Fellowship: UGC-NET',tab:'fellowships',t:'Junior Research Fellowship UGC NET 2019 India'},
+  {s:'Award: ChLA Essay',tab:'awards',t:'ChLA Graduate Student Honorary Essay Award 2023'},
+  {s:'Grant: Diversity Travel',tab:'awards',t:'June Cummins Diversity Travel Grant ChLA 2023'},
+  {s:'Grant: IRSCL',tab:'awards',t:'Conference Travel Grant IRSCL 2023'},
+  {s:'Contact',tab:'contact',t:'email LinkedIn ORCID CV sridipa.dandapat'},
 ];
+
 const sw=document.getElementById('searchWrap'),sb=document.getElementById('searchBtn'),si=document.getElementById('searchInput'),sr=document.getElementById('searchResults');
 sb.addEventListener('click',()=>{const o=sw.classList.toggle('open');if(o)si.focus();else{si.value='';sr.classList.remove('show');}});
 si.addEventListener('input',()=>{
   const q=si.value.trim().toLowerCase();
   if(q.length<2){sr.classList.remove('show');return;}
   const hits=idx.filter(i=>i.t.toLowerCase().includes(q)||i.s.toLowerCase().includes(q));
-  sr.innerHTML=hits.length?hits.slice(0,8).map(h=>`<div class="search-result-item" onclick="go('${h.a}')"><div class="result-section">${h.s}</div><div class="result-text">${snip(h.t,q)}</div></div>`).join(''):`<div class="no-results">No results for "${q}"</div>`;
+  sr.innerHTML=hits.length
+    ?hits.slice(0,8).map(h=>`<div class="search-result-item" onclick="showTab('${h.tab}');sr.classList.remove('show');sw.classList.remove('open');si.value=''"><div class="result-section">${h.s}</div><div class="result-text">${snip(h.t,q)}</div></div>`).join('')
+    :`<div class="no-results">No results for "${q}"</div>`;
   sr.classList.add('show');
 });
 function snip(t,q){const s=t.length>70?t.slice(0,70)+'…':t;return s.replace(new RegExp(`(${q})`,'gi'),'<mark>$1</mark>');}
-function go(a){sr.classList.remove('show');sw.classList.remove('open');si.value='';document.querySelector(a)?.scrollIntoView({behavior:'smooth',block:'start'});}
 document.addEventListener('click',e=>{if(!sw.contains(e.target))sr.classList.remove('show');});
-
-// SCROLL ANIMATIONS
-const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.06});
-document.querySelectorAll('section').forEach(s=>obs.observe(s));
-
-// ACTIVE NAV
-const navAs=document.querySelectorAll('.nav-links a');
-const secs=[...document.querySelectorAll('section')];
-window.addEventListener('scroll',()=>{
-  let cur='';
-  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id;});
-  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
-},{passive:true});
 </script>
 </body>
 </html>
